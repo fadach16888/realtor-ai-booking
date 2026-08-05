@@ -1,0 +1,19 @@
+node_modules/
+.next/
+out/
+next-env.d.ts
+*.tsbuildinfo
+
+.env
+.env.local
+.env.*.local
+
+data/appointments.json
+data/outbox/
+
+# 已從網站移除的示範照片，不要推上 GitHub
+public/card/
+
+.DS_Store
+Thumbs.db
+npm-debug.log*
