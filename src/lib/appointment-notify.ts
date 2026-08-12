@@ -1,9 +1,13 @@
 import { promises as fs } from "node:fs";
+import os from "node:os";
 import path from "node:path";
 import { formatSlotTaipei, intentLabel, meetTypeLabel } from "@/lib/booking";
 import type { Appointment } from "@/lib/appointment-store";
 
-const OUTBOX_DIR = path.join(process.cwd(), "data", "outbox");
+// 同 appointment-store.ts：Vercel 上只有 /tmp 可以寫入。
+const OUTBOX_DIR = process.env.VERCEL
+  ? path.join(os.tmpdir(), "realtor-ai-booking-data", "outbox")
+  : path.join(process.cwd(), "data", "outbox");
 
 function escapeHtml(value: string) {
   return value

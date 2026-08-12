@@ -1,10 +1,15 @@
 import crypto from "node:crypto";
 import { promises as fs } from "node:fs";
+import os from "node:os";
 import path from "node:path";
 
-const DATA_DIR = path.join(process.cwd(), "data");
+// Vercel 的部署檔案是唯讀的，只有 /tmp（os.tmpdir()）可以寫入。
+// 本機開發時仍然寫回專案的 data 資料夾，行為不變。
+const DATA_DIR = process.env.VERCEL
+  ? path.join(os.tmpdir(), "realtor-ai-booking-data")
+  : path.join(process.cwd(), "data");
 const DATABASE_FILE = path.join(DATA_DIR, "appointments.json");
-const SEED_FILE = path.join(DATA_DIR, "appointments.seed.json");
+const SEED_FILE = path.join(process.cwd(), "data", "appointments.seed.json");
 
 export type AppointmentStatus = "confirmed" | "completed" | "cancelled";
 
