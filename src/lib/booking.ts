@@ -8,11 +8,8 @@ export const BOOKING_RULES = {
 } as const;
 
 export const INTENTS = [
-  { key: "buy", label: "買房", hint: "預算、區域、房型" },
-  { key: "sell", label: "賣房", hint: "屋況、售價、時間" },
-  { key: "rent", label: "租賃", hint: "出租或承租需求" },
-  { key: "legal", label: "產權諮詢", hint: "繼承、過戶、糾紛" },
-  { key: "other", label: "其他", hint: "簡單描述需求" }
+  { key: "viewing", label: "帶看", hint: "預算、區域、房型、看房時間" },
+  { key: "consult", label: "諮詢", hint: "買賣、投資、稅務、資產配置等" }
 ] as const;
 
 export const URGENCIES = [

@@ -1,0 +1,43 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model PropertyListing {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  price       Int
+  location    String
+  bedrooms    Int
+  bathrooms   Int
+  area        Int
+  images      String   @default("[]") // JSON array stored as string
+
+  status      String   @default("draft") // 'draft' | 'pending_review' | 'approved' | 'published'
+
+  // 人工審核後定稿的六平台文案 (JSON)
+  approvedContent String?
+
+  // 發布狀態 (JSON)
+  publishedTo String   @default("{\"591\":false,\"5168\":false,\"lehouse\":false,\"facebook\":false,\"instagram\":false,\"twitter\":false}")
+
+  reviewedBy  String?
+  reviewedAt  DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model PublishLog {
+  id        String   @id @default(cuid())
+  propertyId String
+  platform  String   // 591, 5168, lehouse, facebook, instagram, twitter
+  status    String   // success, failed, pending
+  error     String?
+  publishedAt DateTime @default(now())
+  createdAt DateTime @default(now())
+}
